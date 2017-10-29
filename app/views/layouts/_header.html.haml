@@ -1,0 +1,12 @@
+%header
+  .wrap-main
+    %a.logo{:href => "/", :title => "Về trang chủ Thegioididong.com"}
+      %i.icontgdd-logo
+    %form#search-site{:action => "/tim-kiem", :autocomplete => "off", :method => "get", :onsubmit => "return submitSearchForm();"}
+      %input#search-keyword.topinput{:autocomplete => "off", :maxlength => "50", :name => "key", :onkeyup => "SuggestSearch(event,this, 0);", :placeholder => "Bạn tìm gì...", :type => "text"}/
+      %button.btntop{:type => "submit"}
+        %i.icontgdd-topsearch
+    %nav
+      -#%a.mobile{:href => "/dtdd", :title => "Điện thoại di động, smartphone"}
+        %i.icontgdd-mobile>
+        Điện thoại
