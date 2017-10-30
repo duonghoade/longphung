@@ -204,7 +204,7 @@ nav {
 
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
   [class^="icontgdd-"], [class*="icontgdd-"], [class^="iconmobile-"], [class*="iconmobile-"] {
-    background-image: url(https://cdn3.tgdd.vn/v2015/Content/desktop/images/V4/icondesktop@2x.png);
+    background-image: url(/icondesktop@2x.png);
     background-size: 500px 100px;
   }
 }
@@ -856,12 +856,6 @@ nav {
     -moz-border-radius: 30px;
     border-radius: 30px;
   }
-}
-
-/* 04:05:23 28/06/2017 */
-
-body {
-  background: #f0f0f0;
 }
 
 section {

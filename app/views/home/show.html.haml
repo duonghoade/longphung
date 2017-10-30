@@ -1,0 +1,103 @@
+%section.type0
+  %ul.breadcrumb
+    %li
+      %a{:href => "/", :title => "Trang chủ"} Trang chủ
+      %span ›
+    %li
+      %a{:href => "/gametv"} Gametv
+      %span ›
+    %li.brand
+      %a{:href => "/"}= @article.title
+  .clr
+  .clr
+  .box_content
+    %aside.left_content
+      .characteristics
+        %h2= @article.title
+        %iframe{allowfullscreen: "", frameborder: "0", height: "440", src: "#{@macth.youtube_url}?theme=light&autoplay=1&vq=hd720&version=3&hl=vi_VN&rel=0&showinfo=0", width: "780"}
+    %aside.right_content
+      - if @games.present?
+        - @games.each do |game|
+          .game
+            .c
+              = "C#{game.c_num}"
+            .macths
+              - game.macths.order(sort_no: :ASC).each.with_index(1) do |macth, i|
+                %a{class: macth.id == @macth.id ? "active" : "", href: url_for(macth_id: macth.id)}
+                  = "Trận #{i}"
+      - else
+        - @article.macths.order(sort_no: :ASC).each do |macth|
+          %a.stand-alone{href: url_for(macth_id: macth.id), class: macth.id == @macth.id ? "active" : ""}= macth.title
+:scss
+  .box_content {
+    display: block;
+    overflow: hidden;
+    .right_content {
+      float: right;
+      width: 30%;
+      overflow: visible;
+      margin: 20px 0;
+      a.stand-alone {
+        display: inline-block;
+        color: #2a89d6;
+        margin: 0px 10px 10px 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        &.active {
+          color: red;
+        }
+      }
+      .game {
+        display: flex;
+        margin-bottom: 20px;
+        .c {
+          border: 1px solid #050505;
+          padding: 5px;
+          border-radius: 5px;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+        .macths {
+          display: flex;
+          a {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            margin-right: 10px;
+            color: #2a89d7;
+            &.active {
+              background: #288ad6;
+              border: 1px solid #2a89d6;
+              color: #fff;
+              font-weight: bold;
+            }
+            &:last-child {
+              margin-right: 0px;
+            }
+          }
+        }
+      }
+    }
+    .left_content {
+      float: left;
+      width: 65%;
+      overflow: hidden;
+      position: relative;
+      margin: 20px 0;
+      .characteristics {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        padding-bottom: 20px;
+        cursor: pointer;
+        h4, h3, h2 {
+          display: block;
+          line-height: 1.3em;
+          font-size: 20px;
+          color: #333;
+          margin-bottom: 10px;
+        }
+
+      }
+    }
+  }

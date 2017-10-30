@@ -10,4 +10,4 @@ development:
   <<: *default
   username: root
   password:
-  database: aoehd
+  database: arcpub

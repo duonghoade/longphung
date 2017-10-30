@@ -1,13 +1,14 @@
 !!!
 %html{:lang => "vi"}
   %head
-    %title Thegioididong.com - Siêu thị điện thoại, Tablet, Laptop, Phụ kiện chính hãng
+    %title Aoehd.vn - Kho video đế chế HD
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false
   %body
     = yield
     %header
       .wrap-main
-        %a.logo{:href => "/", :title => "Về trang chủ Thegioididong.com"}
+        %a.logo{:href => "/", :title => "Về trang chủ Aoehd.vn"}
           %i.icontgdd-logo
         %form#search-site{:action => "/tim-kiem", :autocomplete => "off", :method => "get", :onsubmit => "return submitSearchForm();"}
           %input#search-keyword.topinput{:autocomplete => "off", :maxlength => "50", :name => "key", :onkeyup => "SuggestSearch(event,this, 0);", :placeholder => "Bạn tìm gì...", :type => "text"}/
@@ -17,7 +18,7 @@
           -#%a.mobile{:href => "/dtdd", :title => "Điện thoại di động, smartphone"}
             %i.icontgdd-mobile>
             Điện thoại
-    %footer
+    -#%footer
       .rowfoot1
         %ul.colfoot
           %li
