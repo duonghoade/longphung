@@ -1,0 +1,98 @@
+
+@media screen and (max-width: 575px) {
+	.wrap-main {
+		display: flex;
+		align-items: center;
+		background:red;
+		a{
+			width: 40vw;
+			.icontgdd-logo {
+				max-width: 10rem;
+			}
+		}
+		form{
+			display: flex;
+			width: 40vw;
+			max-width: 3rem;
+			margin: 10px;
+			.btntop{
+				background:white;
+				border:none;
+				border-radius:  0 4px 4px 0;
+			}
+		}
+	}
+	.homeproduct{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 10px;
+		justify-content: space-between;
+		li {
+			display: table;
+			width: 100%;
+			padding: 5px;
+			flex: 1
+		}
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+	.wrap-main{
+		display: flex;
+		background-image: url(/icondesktop@2x.png);
+		align-items: center;
+		form {
+			margin-left: 200px;
+		}
+	}
+	.homeproduct {
+		margin: 2vw;
+		li {
+			display: flex;
+			margin: 2.5vw;
+			width: 43vw;
+			flex: 1
+		}
+
+	}
+}
+@media screen and (min-width: 578px) and (max-width: 991px) {
+	.homeproduct {
+		margin: 2vw;
+		align-items: center;
+		li {
+			display: flex;
+			margin: 2vw;
+			width: 43vw;
+			min-height: calc(45vh - 40px); 
+		}
+
+	}	
+}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	.homeproduct {
+		margin: 2vw;
+		li {
+			display: flex;
+			margin: 1vw;
+			width: 30vw;
+			height: calc(40vh - 70px); 
+		}
+
+	}		
+}
+@media screen and (min-width: 1200px) {
+	.wrap-main{
+		background:red;
+		align-items: center;
+	}
+	.homeproduct {
+		margin: auto;
+		li {
+			margin: 1vw;
+			width: 18vw;
+			flex: 1
+		}
+
+	}	
+}

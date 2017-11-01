@@ -1,8 +1,9 @@
 %section
   %ul.homeproduct
     - @articles.each.with_index(1) do |article, i|
-      %li{style: i.divmod(5)[1] == 0 ? "margin-left: 0px" : "margin-right: 10px"}
+      %li{style: i.divmod(5)[1] == 0 }
         %a{href: show_path(url_slug: article.url_slug, macth_id: article.first_macth_id)}
           %img{height: "", src: article.thumbnail, width: "232"}/
-          %h3= article.title
-          %p.view-count 11.084 lượt xem
+          .content
+            %h3= article.title
+            %p.view-count 11.084 lượt xem
