@@ -29,16 +29,14 @@
 		}
 	}
 	.homeproduct{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin: 10px;
-		justify-content: space-between;
-		li {
-			display: table;
-			width: 100%;
-			padding: 5px;
-			flex: 1
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
+		grid-gap: 1rem;
+		 grid-auto-rows: minmax(100px, auto);
+		 justify-content:space-evenly;
+		li{
+			padding: 0 0.5em;
+			justify-content: center
 		}
 	}
 }
@@ -52,17 +50,18 @@
 		}
 	}
 	.homeproduct {
-		margin: 2vw;
-		li {
-			display: flex;
-			margin: 2.5vw;
-			width: 43vw;
-			flex: 1
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
+		grid-gap: 1rem;
+		 grid-auto-rows: minmax(100px, auto);
+		 justify-content:space-evenly;
+		li{
+			padding: 0 0.5em;
+			justify-content: center
 		}
-
 	}
 }
-@media screen and (min-width: 578px) and (max-width: 991px) {
+@media screen and (min-width: 768px) and (max-width: 991px) {
 	.wrap-main {
 		form#search-site {
 			position: absolute;
@@ -74,16 +73,15 @@
 		}
 	}
 	.homeproduct {
-		margin: 2vw;
-		align-items: center;
-		li {
-			display: flex;
-			margin: 3vw;
-			width: 40vw;
-			min-height: calc(45vh - 20px); 
-			justify-content: stretch;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
+		grid-gap: 1rem;
+		 grid-auto-rows: minmax(100px, auto);
+		 justify-content:space-evenly;
+		li{
+			padding: 0 0.5em;
+			justify-content: center
 		}
-
 	}	
 }
 @media screen and (min-width: 992px) and (max-width: 1199px) {
@@ -99,12 +97,14 @@
 		}
 	}
 	.homeproduct {
-		margin: 2vw;
-		li {
-			display: flex;
-			margin: 0 1vw;
-			width: 30vw;
-			height: calc(40vh - 50px); 
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
+		grid-gap: 1rem;
+		 grid-auto-rows: minmax(100px, auto);
+		 justify-content:space-evenly;
+		li{
+			padding: 0 0.5em;
+			justify-content: center
 		}
 
 	}		
@@ -123,14 +123,10 @@
 		}
 	}
 	.homeproduct {
-		margin: 1%;
-		li {
-			display: flex;
-			margin: 1%;
-			width: 15vw;
-			min-height: calc(40vh - 70px);
-			max-height: calc(40vh - 70px); 
-		}
-
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15ch, 15%));
+		grid-gap: 1%;
+		 grid-auto-rows: minmax(100px, auto);
+		 justify-content:space-evenly;
 	}	
 }

@@ -314,7 +314,7 @@ section {
     float: left;
     position: relative;
     // width: 232px;
-    height: 200px;
+    // height: 200px;
     overflow: hidden;
     cursor: pointer;
     img {
@@ -327,11 +327,12 @@ section {
       font-size: 12px;
       font-weight: bold;
       margin-top: 10px;
-      height: 32px;
+      // height: 32px;
       overflow: hidden;
       margin-bottom: 0px;
       color: #333;
       line-height: 16px;
+          text-align: left;
     }
     p.view-count {
       font-size: 12px;
