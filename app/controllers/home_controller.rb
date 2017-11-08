@@ -15,4 +15,8 @@ class HomeController < ApplicationController
     end
     @games = @article.games.order(c_num: :ASC)
   end
+
+  def longphung
+    render layout: false
+  end
 end

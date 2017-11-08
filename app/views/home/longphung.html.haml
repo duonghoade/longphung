@@ -1,0 +1,58 @@
+!!!
+%html{:lang => "vi"}
+  %head
+    %title Long Phung Noel
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    = stylesheet_link_tag    "longphung", media: "all", "data-turbolinks-track" => false
+    = render "theme"
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+    :scss
+      .odometer.odometer-theme-car {
+        font-size: 150px;
+        line-height: 150px;
+      }
+    :javascript
+      $(function(){
+        var exampleOdometerValue = 888888888;
+        var exampleOdometer = new Odometer({ el: $('.odometer-example')[0], theme: 'car', value: exampleOdometerValue });
+        exampleOdometer.render()
+
+        setInterval(function(){
+          exampleOdometer.update(121123141);
+        }, 0);
+
+      });
+  %body{style: "margin: 50px"}
+    
+   
+    .start BẮT ĐẦU
+    %ul.customer-ids
+      -#%li.rand_1 0
+      -#%li.rand_2 0
+      -#%li.rand_3 0
+      -#%li.rand_4 0
+    .odometer-example
+
+-#:coffee
+  $ ->
+    start = false;
+    spin = undefined
+    $('.start').click ->
+      if !start
+        spin = setInterval (->
+          rand_1 = Math.floor(Math.random() * (9 - 0));
+          rand_2 = Math.floor(Math.random() * (9 - 0));
+          rand_3 = Math.floor(Math.random() * (9 - 0));
+          rand_4 = Math.floor(Math.random() * (9 - 0));
+          $('.rand_1').text(rand_1);
+          $('.rand_2').text(rand_2);
+          $('.rand_3').text(rand_3);
+          $('.rand_4').text(rand_4);
+        ), 25
+      else
+        clearInterval(spin)
+      start = !start;
+      
+    $(document).keyup (e) ->
+      if e.keyCode == 13
+        $('.start').click()
