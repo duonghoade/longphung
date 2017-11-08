@@ -34,13 +34,13 @@ class Article < ApplicationRecord
   def self.crawl
     require 'open-uri'
     url = "http://cohet.org/clip/all"
-    doc = Nokogiri::HTML open(url. proxy: "http://42.116.18.180:53281")
+    doc = Nokogiri::HTML open(url, proxy: "http://42.116.18.180:53281")
     articles = doc.css('table.tablecat').css('tr')
     articles.reverse.each do |article|
       Article.transaction do
         full_url = article.css('a').first[:href]
         if Article.find_by(source: full_url).blank?
-          detail_doc = Nokogiri::HTML open(full_url. proxy: "http://42.116.18.180:53281")
+          detail_doc = Nokogiri::HTML open(full_url, proxy: "http://42.116.18.180:53281")
           title = detail_doc.css('.hotvideos').css('h1').text
           new_article = Article.create(
             title: title,
@@ -54,7 +54,7 @@ class Article < ApplicationRecord
             macth_title = macth.css('a').text.strip
             begin
               game_id = macth_title[(macth_title.length - 4)..-1].split(".").first.gsub("C", "")
-              macth_doc = Nokogiri::HTML open(macth_url. proxy: "http://42.116.18.180:53281")
+              macth_doc = Nokogiri::HTML open(macth_url, proxy: "http://42.116.18.180:53281")
               youtube_url = macth_doc.css('.hotvideos').css('iframe').first[:src]
               if game_id.to_i == 0
                 if macth_title[macth_title.length-2..-1].first.upcase == "T" && macth_title[macth_title.length-2..-1].last.to_i != 0
