@@ -10,7 +10,7 @@
 
   FORMAT_MARK_HTML = '<span class="odometer-formatting-mark"></span>';
 
-  DIGIT_FORMAT = '(,ddd).dd';
+  DIGIT_FORMAT = '(ddd).dd';
 
   FORMAT_PARSER = /^\(?([^)]*)\)?(?:(.)(d+))?$/;
 
@@ -24,7 +24,7 @@
 
   DIGIT_SPEEDBOOST = .5;
 
-  MS_PER_FRAME = 1000 / FRAMERATE;
+  MS_PER_FRAME = 500 / FRAMERATE;
 
   COUNT_MS_PER_FRAME = 1000 / COUNT_FRAMERATE;
 
@@ -323,6 +323,7 @@
         }
         this.addDigit(digit, wholePart);
       }
+      console.log(11111)
       return this.startWatchingMutations();
     };
 
@@ -340,12 +341,20 @@
         addClass(this.el, 'odometer-animating-down');
       }
       this.stopWatchingMutations();
+      
       this.animate(newValue);
       this.startWatchingMutations();
       setTimeout(function() {
         _this.el.offsetHeight;
         return addClass(_this.el, 'odometer-animating');
       }, 0);
+      if (newValue >= 100 && newValue < 1000) {
+        return this.value = '0' + newValue;
+      } else if (newValue >= 10 && newValue < 100) {
+        return this.value = '00' + newValue;
+      } else if (newValue < 10) {
+        return this.value = '000' + newValue;
+      }
       return this.value = newValue;
     };
 

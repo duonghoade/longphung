@@ -19,4 +19,13 @@ class HomeController < ApplicationController
   def longphung
     render layout: false
   end
+
+  def get_customer
+    code = GiftCode.find_by(code: params[:code])
+    customer = code.customer
+    render json: {
+      name: customer.name,
+      phone: customer.phone
+    }
+  end
 end

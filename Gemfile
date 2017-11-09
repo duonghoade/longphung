@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'rack-mini-profiler'
+# gem 'rack-mini-profiler'
 gem 'nokogiri'
 gem 'pry'
 group :development, :test do

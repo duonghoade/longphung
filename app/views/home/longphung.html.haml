@@ -3,56 +3,103 @@
   %head
     %title Long Phung Noel
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    = stylesheet_link_tag    "longphung", media: "all", "data-turbolinks-track" => false
     = render "theme"
     = javascript_include_tag 'application', 'data-turbolinks-track': true
     :scss
+      body {
+        background: url(/bg.jpg);
+        background-size: 100%;
+        #start {
+          height: 60px;
+          line-height: 60px;
+          padding: 0 30px;
+          font-size: 35px;
+          font-family: "Arimo", monospace;
+          color: #fff;
+          border-radius: 100px;
+          position: fixed;
+          left: 5px;
+          top: 5px;
+          background: green;
+          cursor: pointer;
+        }
+        .result {
+          display: none;
+          margin: auto;
+          width: 100%;
+          text-align: center;
+          color: white;
+          font-family: "Arimo", monospace;
+        }
+      }
       .odometer.odometer-theme-car {
         font-size: 150px;
         line-height: 150px;
+        display: block;
+        width: 514px;
+        max-width: 514px;
+        margin: auto;
+        margin-top: 30px;
+        background: unset;
+        padding: 0;
       }
-    :javascript
-      $(function(){
-        var exampleOdometerValue = 888888888;
-        var exampleOdometer = new Odometer({ el: $('.odometer-example')[0], theme: 'car', value: exampleOdometerValue });
+      #logo {
+        text-align: center;
+        img {
+          width: 30%;
+          min-width: 300px;
+        }
+      }
+    :coffee
+      $ ->
+        spin = undefined
+        start = false
+        code = null
+        exampleOdometerValue = 8888
+        exampleOdometer = new Odometer(
+          el: $('.odometer-example')[0]
+          theme: 'car'
+          value: exampleOdometerValue)
         exampleOdometer.render()
+        doSomeThing = ->
+          rand_1 = Math.floor(Math.random() * (9 - 0)).toString()
+          rand_2 = Math.floor(Math.random() * (9 - 0)).toString()
+          rand_3 = Math.floor(Math.random() * (9 - 0)).toString()
+          rand_4 = Math.floor(Math.random() * (9 - 0)).toString()
+          code = rand_1 + rand_2 + rand_3 + rand_4
+          exampleOdometer.update code
+        $('#start').click ->
+          if !start
+            $('.result').hide()
+            $('#start').text("XEM KẾT QUẢ")
+            doSomeThing()
+            spin = setInterval (->
+              doSomeThing()
+            ), 2000
+          else
+            $('#start').text("QUAY TIẾP")
+            clearInterval(spin)
+            $.ajax
+              url: '/get_customer' + '?code=' + code
+              success: (respon) ->
+                setTimeout(->
+                  $('.result').show()
+                  $('.phone').text(respon.phone)
+                  $('.name').text(respon.name)
+                , 2000)
+          start = !start;
 
-        setInterval(function(){
-          exampleOdometer.update(121123141);
-        }, 0);
-
-      });
+        $(document).keyup (e) ->
+          if e.keyCode == 13
+            $('#start').click()
   %body{style: "margin: 50px"}
-    
-   
-    .start BẮT ĐẦU
-    %ul.customer-ids
-      -#%li.rand_1 0
-      -#%li.rand_2 0
-      -#%li.rand_3 0
-      -#%li.rand_4 0
+    #start BẮT ĐẦU
+    #logo
+      %img{src: "/logo.png"}
     .odometer-example
-
--#:coffee
-  $ ->
-    start = false;
-    spin = undefined
-    $('.start').click ->
-      if !start
-        spin = setInterval (->
-          rand_1 = Math.floor(Math.random() * (9 - 0));
-          rand_2 = Math.floor(Math.random() * (9 - 0));
-          rand_3 = Math.floor(Math.random() * (9 - 0));
-          rand_4 = Math.floor(Math.random() * (9 - 0));
-          $('.rand_1').text(rand_1);
-          $('.rand_2').text(rand_2);
-          $('.rand_3').text(rand_3);
-          $('.rand_4').text(rand_4);
-        ), 25
-      else
-        clearInterval(spin)
-      start = !start;
-      
-    $(document).keyup (e) ->
-      if e.keyCode == 13
-        $('.start').click()
+    .result
+      %p{style: "font-size: 30px"} XIN CHÚC MỪNG
+      %p.name{style: "font-size: 80px"}
+        Nguyễn Trọng Hoàng
+      %p.phone{style: "font-size: 50px"}
+        0982382000
