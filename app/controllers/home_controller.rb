@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     file_path = Rails.root.join("public/hula.mp4")
     size = File.size(file_path)
     response.headers["Accept-Ranges"] = "bytes"
-    response.headers["Content-Range"] = "bytes #{size}/#{size}"
+    response.headers["Content-Range"] = "bytes 0-#{size}/#{size}"
     response.headers["Content-Length"] = size
     send_file file_path, type: 'video/mp4', disposition: :inline, stream: true
   end
