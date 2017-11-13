@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get 'longphung' => 'home#longphung'
 
   get 'get_customer' => 'home#get_customer'
+  get 'video' => 'home#video'
 end
