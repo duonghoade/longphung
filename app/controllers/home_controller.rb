@@ -34,10 +34,21 @@ class HomeController < ApplicationController
   def video
     file_path = Rails.root.join("public/hula.mp4")
     size = File.size(file_path)
-    response.headers["Accept-Ranges"] = "bytes"
-    response.headers["Content-Range"] = "bytes 0-#{size}/#{size-1}"
-    response.headers["Content-Length"] = size
-    response.headers["Content-Transfer-Encoding"] = nil
-    send_file file_path, type: 'video/mp4', stream: true
+    if request.headers["HTTP_RANGE"].present?
+      bytes = Rack::Utils.byte_ranges(request.headers, size)[0]
+      offset = bytes.begin
+      length = bytes.end - bytes.begin + 1
+      response.headers["Accept-Ranges"]=  "bytes"
+      response.headers["Content-Range"] = "bytes #{bytes.begin}-#{bytes.end}/#{size}"
+      response.headers["Content-Length"] = "#{length}"
+
+      send_data IO.binread(file_path,length, offset), :type => "video/mp4", :stream => true,  :disposition => 'inline', :file_name => "hula.mp4"
+
+    else
+      response.header["Accept-Ranges"]=  "bytes"
+      response.header["Content-Length"] = "#{size}"
+
+      send_file(file_path, :type => "video/mp4", :disposition => 'inline', :stream => true, :file_name => "hula.mp4")
+    end
   end
 end
