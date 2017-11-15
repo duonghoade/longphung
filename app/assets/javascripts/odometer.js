@@ -660,7 +660,6 @@
       return exampleOdometer.update(code);
     };
     $('#start').click(function() {
-      window.show = false;
       if (!start) {
         $('.result').hide();
         $('#start').text("XEM KẾT QUẢ");
@@ -673,7 +672,7 @@
         $.ajax({
           url: '/get_customer' + '?code=' + code,
           success: function(respon) {
-            
+            $('.greeting').text('XIN CHÚC MỪNG');
             $('.phone').text(respon.phone);
             $('.name').text(respon.name);
             return $('#start').text("QUAY TIẾP");
