@@ -1,6 +1,6 @@
 (function() {
   var COUNT_FRAMERATE, COUNT_MS_PER_FRAME, DIGIT_FORMAT, DIGIT_HTML, DIGIT_SPEEDBOOST, DURATION, FORMAT_MARK_HTML, FORMAT_PARSER, FRAMERATE, FRAMES_PER_VALUE, MS_PER_FRAME, MutationObserver, Odometer, RIBBON_HTML, TRANSITION_END_EVENTS, TRANSITION_SUPPORT, VALUE_HTML, addClass, createFromHTML, fractionalPart, now, removeClass, requestAnimationFrame, round, transitionCheckStyles, trigger, truncate, wrapJQuery, _jQueryWrapped, _old, _ref, _ref1,
-    __slice = [].slice;
+  __slice = [].slice;
 
   VALUE_HTML = '<span class="odometer-value"></span>';
 
@@ -323,7 +323,7 @@
         }
         this.addDigit(digit, wholePart);
       }
-      console.log(11111)
+      $('.result').show();
       return this.startWatchingMutations();
     };
 
@@ -637,5 +637,56 @@
   } else {
     window.Odometer = Odometer;
   }
+  
+  $(function() {
+    var code, doSomeThing, exampleOdometer, exampleOdometerValue, spin, start;
+    spin = void 0;
+    start = false;
+    code = null;
+    exampleOdometerValue = 8888;
+    exampleOdometer = new Odometer({
+      el: $('.odometer-example')[0],
+      theme: 'car',
+      value: exampleOdometerValue
+    });
+    exampleOdometer.render();
+    doSomeThing = function() {
+      var rand_1, rand_2, rand_3, rand_4;
+      rand_1 = Math.floor(Math.random() * (9 - 0)).toString();
+      rand_2 = Math.floor(Math.random() * (9 - 0)).toString();
+      rand_3 = Math.floor(Math.random() * (9 - 0)).toString();
+      rand_4 = Math.floor(Math.random() * (9 - 0)).toString();
+      code = rand_1 + rand_2 + rand_3 + rand_4;
+      return exampleOdometer.update(code);
+    };
+    $('#start').click(function() {
+      window.show = false;
+      if (!start) {
+        $('.result').hide();
+        $('#start').text("XEM KẾT QUẢ");
+        doSomeThing();
+        spin = setInterval((function() {
+          return doSomeThing();
+        }), 2000);
+      } else {
+        clearInterval(spin);
+        $.ajax({
+          url: '/get_customer' + '?code=' + code,
+          success: function(respon) {
+            
+            $('.phone').text(respon.phone);
+            $('.name').text(respon.name);
+            return $('#start').text("QUAY TIẾP");
+          }
+        });
+      }
+      return start = !start;
+    });
+    return $(document).keyup(function(e) {
+      if (e.keyCode === 13) {
+        return $('#start').click();
+      }
+    });
+  })
 
 }).call(this);

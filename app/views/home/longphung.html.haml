@@ -32,6 +32,20 @@
           font-family: "Arimo", monospace;
         }
       }
+      .title {
+        font-family: "Arimo", monospace;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        background: rgba(143,2,34,1);
+        background: -moz-linear-gradient(top, rgba(143,2,34,1) 0%, rgba(143,2,34,1) 49%, rgba(169,3,41,1) 50%, rgba(109,0,25,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(143,2,34,1)), color-stop(49%, rgba(143,2,34,1)), color-stop(50%, rgba(169,3,41,1)), color-stop(100%, rgba(109,0,25,1)));
+        background: -webkit-linear-gradient(top, rgba(143,2,34,1) 0%, rgba(143,2,34,1) 49%, rgba(169,3,41,1) 50%, rgba(109,0,25,1) 100%);
+        background: -o-linear-gradient(top, rgba(143,2,34,1) 0%, rgba(143,2,34,1) 49%, rgba(169,3,41,1) 50%, rgba(109,0,25,1) 100%);
+        background: -ms-linear-gradient(top, rgba(143,2,34,1) 0%, rgba(143,2,34,1) 49%, rgba(169,3,41,1) 50%, rgba(109,0,25,1) 100%);
+        background: linear-gradient(to bottom, rgba(143,2,34,1) 0%, rgba(143,2,34,1) 49%, rgba(169,3,41,1) 50%, rgba(109,0,25,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#6d0019', GradientType=0 );
+      }
       .odometer.odometer-theme-car {
         font-size: 150px;
         line-height: 150px;
@@ -46,60 +60,19 @@
       #logo {
         text-align: center;
         img {
-          width: 30%;
+          width: 50%;
           min-width: 300px;
         }
       }
-    :coffee
-      $ ->
-        spin = undefined
-        start = false
-        code = null
-        exampleOdometerValue = 8888
-        exampleOdometer = new Odometer(
-          el: $('.odometer-example')[0]
-          theme: 'car'
-          value: exampleOdometerValue)
-        exampleOdometer.render()
-        doSomeThing = ->
-          rand_1 = Math.floor(Math.random() * (9 - 0)).toString()
-          rand_2 = Math.floor(Math.random() * (9 - 0)).toString()
-          rand_3 = Math.floor(Math.random() * (9 - 0)).toString()
-          rand_4 = Math.floor(Math.random() * (9 - 0)).toString()
-          code = rand_1 + rand_2 + rand_3 + rand_4
-          exampleOdometer.update code
-        $('#start').click ->
-          if !start
-            $('.result').hide()
-            $('#start').text("XEM KẾT QUẢ")
-            doSomeThing()
-            spin = setInterval (->
-              doSomeThing()
-            ), 2000
-          else
-            $('#start').text("QUAY TIẾP")
-            clearInterval(spin)
-            $.ajax
-              url: '/get_customer' + '?code=' + code
-              success: (respon) ->
-                setTimeout(->
-                  $('.result').show()
-                  $('.phone').text(respon.phone)
-                  $('.name').text(respon.name)
-                , 2000)
-          start = !start;
-
-        $(document).keyup (e) ->
-          if e.keyCode == 13
-            $('#start').click()
-  %body{style: "margin: 50px"}
+    
+  %body{style: "margin: 10px 50px"}
     #start BẮT ĐẦU
     #logo
       %img{src: "/logo.png"}
     .odometer-example
     .result
-      %p{style: "font-size: 30px"} XIN CHÚC MỪNG
-      %p.name{style: "font-size: 80px"}
+      %p{style: "font-size: 30px;margin-bottom: 0"} XIN CHÚC MỪNG
+      %p.name{style: "font-size: 80px;-webkit-margin-before: 10px;-webkit-margin-after: 20px;"}
         Nguyễn Trọng Hoàng
-      %p.phone{style: "font-size: 50px"}
-        0982382000
+      %p.phone{style: "font-size: 50px;-webkit-margin-before: 0;"}
+        Số điện thoại 0982382000

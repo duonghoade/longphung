@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :basic, only: [:video]
+  skip_before_action :basic, only: [:video, :longphung]
 
   def index
     @articles = Article.all
@@ -34,21 +34,28 @@ class HomeController < ApplicationController
   def video
     file_path = Rails.root.join("public/hula.mp4")
     size = File.size(file_path)
-    if request.headers["HTTP_RANGE"].present?
-      bytes = Rack::Utils.byte_ranges(request.headers, size)[0]
-      offset = bytes.begin
-      length = bytes.end - bytes.begin + 1
+    if request.env['HTTP_USER_AGENT'] =~ /[^\(]*[^\)]Chrome\//
       response.headers["Accept-Ranges"]=  "bytes"
-      response.headers["Content-Range"] = "bytes #{bytes.begin}-#{bytes.end}/#{size}"
-      response.headers["Content-Length"] = "#{length}"
-
-      send_data IO.binread(file_path,length, offset), :type => "video/mp4", :stream => true,  :disposition => 'inline', :file_name => "hula.mp4"
-
-    else
-      response.header["Accept-Ranges"]=  "bytes"
-      response.header["Content-Length"] = "#{size}"
+      response.headers["Content-Length"] = "#{size}"
 
       send_file(file_path, :type => "video/mp4", :disposition => 'inline', :stream => true, :file_name => "hula.mp4")
+    else
+      if request.headers["HTTP_RANGE"].present?
+        bytes = Rack::Utils.byte_ranges(request.headers, size)[0]
+        offset = bytes.begin
+        length = bytes.end - bytes.begin + 1
+        response.headers["Accept-Ranges"]=  "bytes"
+        response.headers["Content-Range"] = "bytes #{bytes.begin}-#{bytes.end}/#{size}"
+        response.headers["Content-Length"] = "#{length}"
+
+        send_data IO.binread(file_path,length, offset), :type => "video/mp4", :stream => true,  :disposition => 'inline', :file_name => "hula.mp4"
+
+      else
+        response.headers["Accept-Ranges"]=  "bytes"
+        response.headers["Content-Length"] = "#{size}"
+
+        send_file(file_path, :type => "video/mp4", :disposition => 'inline', :stream => true, :file_name => "hula.mp4")
+      end
     end
   end
 end
