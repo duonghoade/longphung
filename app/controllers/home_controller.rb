@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :basic, only: [:video, :longphung, :get_customer]
+  # skip_before_action :basic, only: [:video, :longphung, :get_customer]
 
   def index
     @articles = Article.all
