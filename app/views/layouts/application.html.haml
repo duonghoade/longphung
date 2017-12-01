@@ -4,46 +4,22 @@
     %title Aoehd.vn - Kho video đế chế HD
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false
-  %body
-    = yield
-    %header
-      .wrap-main
-        %a.logo{:href => "/", :title => "Về trang chủ Aoehd.vn"}
-          %i.icontgdd-logo
-        %form#search-site{:action => "/tim-kiem", :autocomplete => "off", :method => "get", :onsubmit => "return submitSearchForm();"}
-          %input#search-keyword.topinput{:autocomplete => "off", :maxlength => "50", :name => "key", :onkeyup => "SuggestSearch(event,this, 0);", :placeholder => "Bạn tìm gì...", :type => "text"}/
-          %button.btntop{:type => "submit"}
-            %i.icontgdd-topsearch
-        %nav
-          -#%a.mobile{:href => "/dtdd", :title => "Điện thoại di động, smartphone"}
-            %i.icontgdd-mobile>
-            Điện thoại
-    -#%footer
-      .rowfoot1
-        %ul.colfoot
-          %li
-            %a{:href => "/tra-gop", :title => "Hướng dẫn mua trả góp"} Tìm hiểu về mua trả góp
-          %li
-            %a{:href => "/bao-hanh", :title => "Tìm trung tâm bảo hành"} Chính sách bảo hành
-          %li
-            %a{:href => "/chinh-sach-bao-hanh-san-pham", :title => "Chính sách đổi trả"} Chính sách đổi trả
-          %li
-            %a{:href => "/giao-hang", :title => "Giao hàng & Thanh toán"} Giao hàng & Thanh toán
-          %li.showmore
-            %a{:href => "javascript:ShowMoreFooterSupportLink()", :title => "Xem thêm"} Xem thêm
-          %li.hidden
-            %a{:href => "/huong-dan-mua-hang", :title => "Hướng dẫn mua online"} Hướng dẫn mua online
-          %li.hidden
-            %a{:href => "/b2b", :title => "Mua hàng doanh nghiệp"} Bán hàng doanh nghiệp
-          %li.hidden
-            %a{:href => "/phieu-mua-hang", :title => "Phiếu mua hàng"} Phiếu mua hàng
-          %li.hidden
-            %a{:href => "//hddt.thegioididong.com", :rel => "nofollow", :target => "_blank", :title => "In hóa đơn điện tử"} In hóa đơn điện tử
-          %li.hidden
-            %a{:href => "/tos", :title => "Quy chế hoạt động"} Quy chế hoạt động
-          %li.hidden
-            %a{:href => "/noi-quy-cua-hang", :title => "Nội quy cửa hàng"} Nội quy cửa hàng
-          %li.hidden
-            %a{:href => "/chat-luong-phuc-vu", :title => "Chất lượng phục vụ"} Chất lượng phục vụ
-          %li.hidden
-            %a{:href => "/trao-thuong", :title => "Thông tin trao thưởng"} Thông tin trao thưởng
+  %body.home.blog.custom-background
+    #container
+      %header.header
+        #inner-header.wrap.cf
+          %h1#logo.h1.dfont
+            %a{:href => "/"} AOEHD.VN
+          %nav.desktop-nav.clearfix
+            %ul.menu{:id => "menu-%e3%83%98%e3%83%83%e3%83%80%e3%83%bc"}
+              %li#menu-item-79.menu-item.menu-item-type-custom.menu-item-object-custom.current-menu-item.current_page_item.menu-item-home.menu-item-79
+                %a{:href => "/"}
+                  %i.fa.fa-home{"aria-hidden" => "true"}
+                  HOME
+      = yield
+      %footer.footer
+        #footer-menu
+          %div
+            %a.footer-menu__btn.dfont{:href => "/"}
+              %i.fa.fa-home.fa-lg
+              HOME

@@ -1,9 +1,9 @@
-class CreateMacths < ActiveRecord::Migration[5.1]
+class CreateMatchs < ActiveRecord::Migration[5.1]
   def change
-    create_table :macths do |t|
+    create_table :matches do |t|
       t.string :title
       t.string :youtube_url
-      t.references :macthable, polymorphic: true
+      t.references :matchable, polymorphic: true
       t.integer :sort_no, default: 0
 
       t.timestamps

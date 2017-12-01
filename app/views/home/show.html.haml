@@ -1,103 +1,67 @@
-%section.type0
-  %ul.breadcrumb
-    %li
-      %a{:href => "/", :title => "Trang chủ"} Trang chủ
-      %span ›
-    %li
-      %a{:href => "/gametv"} Gametv
-      %span ›
-    %li.brand
-      %a{:href => "/"}= @article.title
-  .clr
-  .clr
-  .box_content
-    %aside.left_content
-      .characteristics
-        %h2= @article.title
-        %iframe{allowfullscreen: "", frameborder: "0", height: "440", src: "#{@macth.youtube_url}?theme=light&autoplay=1&vq=hd720&version=3&hl=vi_VN&rel=0&showinfo=0", width: "780"}
-    %aside.right_content
-      - if @games.present?
-        - @games.each do |game|
-          .game
-            .c
-              = "C#{game.c_num}"
-            .macths
-              - game.macths.order(sort_no: :ASC).each.with_index(1) do |macth, i|
-                %a{class: macth.id == @macth.id ? "active" : "", href: url_for(macth_id: macth.id)}
-                  = "Trận #{i}"
-      - else
-        - @article.macths.order(sort_no: :ASC).each do |macth|
-          %a.stand-alone{href: url_for(macth_id: macth.id), class: macth.id == @macth.id ? "active" : ""}= macth.title
-:scss
-  .box_content {
-    display: block;
-    overflow: hidden;
-    .right_content {
-      float: right;
-      width: 30%;
-      overflow: visible;
-      margin: 20px 0;
-      a.stand-alone {
-        display: inline-block;
-        color: #2a89d6;
-        margin: 0px 10px 10px 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-        &.active {
-          color: red;
-        }
-      }
-      .game {
-        display: flex;
-        margin-bottom: 20px;
-        .c {
-          border: 1px solid #050505;
-          padding: 5px;
-          border-radius: 5px;
-          font-weight: bold;
-          margin-right: 10px;
-        }
-        .macths {
-          display: flex;
-          a {
-            border: 1px solid #ccc;
-            padding: 5px;
-            border-radius: 5px;
-            margin-right: 10px;
-            color: #2a89d7;
-            &.active {
-              background: #288ad6;
-              border: 1px solid #2a89d6;
-              color: #fff;
-              font-weight: bold;
-            }
-            &:last-child {
-              margin-right: 0px;
-            }
-          }
-        }
-      }
-    }
-    .left_content {
-      float: left;
-      width: 65%;
-      overflow: hidden;
-      position: relative;
-      margin: 20px 0;
-      .characteristics {
-        display: block;
-        overflow: hidden;
-        position: relative;
-        padding-bottom: 20px;
-        cursor: pointer;
-        h4, h3, h2 {
-          display: block;
-          line-height: 1.3em;
-          font-size: 20px;
-          color: #333;
-          margin-bottom: 10px;
-        }
+#content
+  #inner-content.wrap.cf
+    %main#main.m-all.t-2of3.d-5of7.cf
+      %article#entry.cf.post-611.post.type-post.status-publish.format-standard.has-post-thumbnail.category-hospital-facilities
+        %header.article-header.entry-header
+          %nav#breadcrumb{style: "background: transparent"}
+            %ul{:itemscope => "", :itemtype => "http://schema.org/BreadcrumbList"}
+              %li{:itemprop => "itemListElement", :itemscope => "", :itemtype => "http://schema.org/ListItem"}
+                %a{:href => "/", :itemprop => "item"}
+                  %span{:itemprop => "name"} Trang Chủ
+                %meta{:content => "1", :itemprop => "position"}/
+              %li{:itemprop => "itemListElement", :itemscope => "", :itemtype => "http://schema.org/ListItem"}
+                %a{:href => url_for, :itemprop => "item"}
+                  %span{:itemprop => "name"}= @article.title
+                %meta{:content => "2", :itemprop => "position"}/
+          %h1.entry-title.single-title= @article.title
+          %iframe{allowfullscreen: "", frameborder: "0", height: "440", src: "#{@match.youtube_url}?theme=light&vq=hd720&version=3&hl=vi_VN&rel=0&showinfo=0", width: "780"}
+    #sidebar1.sidebar.m-all.t-1of3.d-2of7.last-col.cf{:role => "complementary"}
+      .insidesp
+        #notfix
+          
+          #recent-posts-2.widget.widget_recent_entries
+            %h4.widgettitle.dfont High Light
+            - if @games.present?
+              - @games.each do |game|
+                .game
+                  .c
+                    = "C#{game.c_num}"
+                  .macths
+                    - game.matches.order(sort_no: :ASC).each.with_index(1) do |match, i|
+                      %a{class: match.id == @match.id ? "active" : "", href: url_for(match_id: match.id)}
+                        = "Trận #{i}"
+            - else
+              - @article.macthes.order(sort_no: :ASC).each do |macth|
+                %a.stand-alone{href: url_for(macth_id: macth.id), class: macth.id == @macth.id ? "active" : ""}= macth.title
 
+:scss
+  .game {
+    display: flex;
+    margin-bottom: 20px;
+    .c {
+      border: 1px solid #050505;
+      padding: 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .macths {
+      display: flex;
+      a {
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 10px;
+        color: #2a89d7;
+        &.active {
+          background: #288ad6;
+          border: 1px solid #2a89d6;
+          color: #fff;
+          font-weight: bold;
+        }
+        &:last-child {
+          margin-right: 0px;
+        }
       }
     }
   }

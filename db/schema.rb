@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109084309) do
+ActiveRecord::Schema.define(version: 20171201045716) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "title"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20171109084309) do
     t.string "source"
     t.integer "publish", default: 0
     t.string "thumbnail"
-    t.integer "first_macth_id"
+    t.integer "first_match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -48,15 +48,16 @@ ActiveRecord::Schema.define(version: 20171109084309) do
     t.index ["customer_id"], name: "index_gift_codes_on_customer_id"
   end
 
-  create_table "macths", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "matches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "title"
     t.string "youtube_url"
-    t.string "macthable_type"
-    t.bigint "macthable_id"
+    t.string "matchable_type"
+    t.bigint "matchable_id"
     t.integer "sort_no", default: 0
+    t.boolean "high_light", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["macthable_type", "macthable_id"], name: "index_macths_on_macthable_type_and_macthable_id"
+    t.index ["matchable_type", "matchable_id"], name: "index_matches_on_matchable_type_and_matchable_id"
   end
 
   add_foreign_key "games", "articles"

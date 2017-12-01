@@ -1,6 +1,6 @@
 class Article < ApplicationRecord
   has_many :games
-  has_many :macths, as: :macthable
+  has_many :matches, as: :matchable
 
   def self.slug(string)
     string = string.strip
@@ -48,30 +48,30 @@ class Article < ApplicationRecord
             source: full_url,
             thumbnail: detail_doc.css('.clip-same-item-img').first[:src]
           )
-          macths = detail_doc.css('table.tablecat').css('tr').reverse
-          macths.each_with_index do |macth, i|
-            macth_url = macth.css('a').first[:href]
-            macth_title = macth.css('a').text.strip
+          matches = detail_doc.css('table.tablecat').css('tr').reverse
+          matches.each_with_index do |match, i|
+            match_url = match.css('a').first[:href]
+            match_title = match.css('a').text.strip
             begin
-              game_id = macth_title[(macth_title.length - 4)..-1].split(".").first.gsub("C", "")
-              macth_doc = Nokogiri::HTML open(macth_url, proxy: "http://42.116.18.180:53281")
-              youtube_url = macth_doc.css('.hotvideos').css('iframe').first[:src]
+              game_id = match_title[(match_title.length - 4)..-1].split(".").first.gsub("C", "")
+              match_doc = Nokogiri::HTML open(match_url, proxy: "http://42.116.18.180:53281")
+              youtube_url = match_doc.css('.hotvideos').css('iframe').first[:src]
               if game_id.to_i == 0
-                if macth_title[macth_title.length-2..-1].first.upcase == "T" && macth_title[macth_title.length-2..-1].last.to_i != 0
-                  new_macth = new_article.macths.create!(youtube_url: youtube_url, title: macth_title, sort_no: macth_title[macth_title.length-2..-1].last.to_i)
+                if match_title[match_title.length-2..-1].first.upcase == "T" && match_title[match_title.length-2..-1].last.to_i != 0
+                  new_match = new_article.matches.create!(youtube_url: youtube_url, title: match_title, sort_no: match_title[match_title.length-2..-1].last.to_i)
                 else
-                  new_macth = new_article.macths.create!(youtube_url: youtube_url, title: macth_title)
+                  new_match = new_article.matches.create!(youtube_url: youtube_url, title: match_title)
                 end
               else
-                sort_no = macth_title.last.to_i
+                sort_no = match_title.last.to_i
                 game = new_article.games.where(c_num: game_id.to_i).first_or_create
-                new_macth = game.macths.create!(title: macth_title, youtube_url: youtube_url, sort_no: sort_no)
+                new_match = game.matches.create!(title: match_title, youtube_url: youtube_url, sort_no: sort_no)
                 if game_id.to_i == 1 && sort_no == 1
-                  new_article.update(first_macth_id: new_macth.id)
+                  new_article.update(first_match_id: new_match.id)
                 end
               end
-              if i == macths.length - 1 && new_article.first_macth_id.nil?
-                new_article.update(first_macth_id: new_macth.id)
+              if i == matches.length - 1 && new_article.first_match_id.nil?
+                new_article.update(first_match_id: new_match.id)
               end
             rescue => e
               binding.pry

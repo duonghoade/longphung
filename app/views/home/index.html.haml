@@ -1,9 +1,27 @@
-%section
-  %ul.homeproduct
-    - @articles.each.with_index(1) do |article, i|
-      %li{style: i.divmod(5)[1] == 0 }
-        %a{href: show_path(url_slug: article.url_slug, macth_id: article.first_macth_id)}
-          %img{height: "", src: article.thumbnail, width: "232"}/
-          .content
-            %h3= article.title
-            %p.view-count 11.084 lượt xem
+#content
+  #inner-content.wrap.cf
+    %main#main.m-all.t-2of3.d-5of7.cf
+      .cardtype.cf
+        - @articles.each.with_index(1) do |article, i|
+          %article.cardtype__article
+            %a.cardtype__link{:href => show_path(url_slug: article.url_slug, match_id: article.first_match_id)}
+              %p.cardtype__img
+                %img{:alt => article.title, :src => article.thumbnail}/
+              .cardtype__article-info
+                %time.updated.entry-time.dfont{:datetime => "2017-10-24"}= article.created_at.to_date
+                %h2= article.title
+        
+    #sidebar1.sidebar.m-all.t-1of3.d-2of7.last-col.cf{:role => "complementary"}
+      .insidesp
+        #notfix
+          
+          #recent-posts-2.widget.widget_recent_entries
+            %h4.widgettitle.dfont High Light
+            %ul.my-widget
+              - @high_lights.each do |match|
+                - article = match.article
+                %li
+                  %a{:href => show_path(url_slug: article.url_slug, macth_id: match.id)}
+                    %figure.my-widget__img
+                      %img.attachment-thumb-160.size-thumb-160.wp-post-image{:alt => match.title, :height => "160", :sizes => "(max-width: 160px) 100vw, 160px", :src => article.thumbnail, :srcset => article.thumbnail, :width => "160"}/
+                    .my-widget__text= match.title

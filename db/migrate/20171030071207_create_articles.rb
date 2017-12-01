@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration[5.1]
       t.string :source
       t.integer :publish, default: 0
       t.string :thumbnail
-      t.integer :first_macth_id
+      t.integer :first_match_id
 
       t.timestamps
     end
