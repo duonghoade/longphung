@@ -38,7 +38,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute :sudo, "/etc/init.d/unicorn restart"
+      execute :sudo, "/etc/init.d/unicorn_aoehd restart"
     end
   end
   after :publishing, 'deploy:restart'
