@@ -31,8 +31,8 @@
                       %a{class: match.id == @match.id ? "active" : "", href: url_for(match_id: match.id)}
                         = "Trận #{i}"
             - else
-              - @article.macthes.order(sort_no: :ASC).each do |macth|
-                %a.stand-alone{href: url_for(macth_id: macth.id), class: macth.id == @macth.id ? "active" : ""}= macth.title
+              - @article.matches.order(sort_no: :ASC).each do |match|
+                %a.stand-alone{href: url_for(macth_id: match.id), class: match.id == @match.id ? "active" : ""}= match.title
 
 :scss
   .game {
