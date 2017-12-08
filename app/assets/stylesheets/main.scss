@@ -332,7 +332,7 @@ h4, .h4 {
 .single-title, .page-title, .entry-title {
   padding: 0 0 10px 0;
   margin: 0 !important;
-  font-size: 4vw !important;
+  font-size: 2.8vw;
 }
 
 .entry-time {
@@ -674,6 +674,9 @@ h4, .h4 {
 }
 
 @media only screen and (min-width: 1030px) {
+  .single-title, .page-title, .entry-title {
+    font-size: 1.5vw;
+  }
   .wrap {
     width: 1000px;
   }
@@ -797,6 +800,11 @@ body {
 @media only screen and (min-width: 481px) {
   body {
     font-size: 107%;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .entry-title.single-title {
+    font-size: 3.5vw !important;
   }
 }
 
