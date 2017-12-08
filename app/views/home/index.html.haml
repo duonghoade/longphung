@@ -20,9 +20,34 @@
             %h4.widgettitle.dfont High Light
             %ul.my-widget
               - @high_lights.each do |match|
-                - article = match.article
+                - article = match.matchable.is_a?(Article) ? match.matchable : match.matchable.article
                 %li
-                  %a{:href => show_path(url_slug: article.url_slug, macth_id: match.id)}
+                  %a{:href => show_path(url_slug: article.url_slug , match_id: match.id)}
                     %figure.my-widget__img
                       %img.attachment-thumb-160.size-thumb-160.wp-post-image{:alt => match.title, :height => "160", :sizes => "(max-width: 160px) 100vw, 160px", :src => article.thumbnail, :srcset => article.thumbnail, :width => "160"}/
                     .my-widget__text= match.title
+:css
+  .widget ul li {
+    margin: 0;
+    font-weight: bold;
+
+  }
+  .widget .my-widget li a {
+    display: table;
+    width: 100%;
+  }
+  .my-widget li a .my-widget__img {
+    display: table-cell;
+    width: 88px;
+    height: 88px;
+    padding-right: 8px;
+    vertical-align: middle;
+    padding: 0;
+  }
+  .my-widget li a .my-widget__text {
+    display: table-cell;
+    font-size: .9em;
+    vertical-align: middle;
+    line-height: 1.5;
+    padding: 0px 0px 0px 10px;
+  }
