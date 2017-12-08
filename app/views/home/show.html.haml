@@ -9,7 +9,6 @@
         #notfix
           
           #recent-posts-2.widget.widget_recent_entries
-            %h4.widgettitle.dfont High Light
             - if @games.present?
               - @games.each do |game|
                 .game
@@ -18,7 +17,7 @@
                   .macths
                     - game.matches.order(sort_no: :ASC).each.with_index(1) do |match, i|
                       %a{class: match.id == @match.id ? "active" : "", href: url_for(match_id: match.id)}
-                        = "Trận #{i}"
+                        = "#{i}"
             - else
               - @article.matches.order(sort_no: :ASC).each do |match|
                 %a.stand-alone{href: url_for(macth_id: match.id), class: match.id == @match.id ? "active" : ""}= match.title
@@ -36,12 +35,18 @@
     }
     .macths {
       display: flex;
+      flex-direction: row;
+      width: 100%;
       a {
         border: 1px solid #ccc;
         padding: 5px;
         border-radius: 5px;
-        margin-right: 10px;
         color: #2a89d7;
+        width: 100%;
+        flex-grow: 1;
+        text-align: center;
+        max-width: 45.77px;
+        margin-right: 5px;
         &.active {
           background: #288ad6;
           border: 1px solid #2a89d6;

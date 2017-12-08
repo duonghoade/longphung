@@ -107,12 +107,19 @@ iframe {
 }
 
 @media (max-width: 767px) {
+  .widget {
+    margin: 0px 10px;
+    padding: 10px;
+    background: #fff;
+    font-size: 15px;
+  }
   iframe {
     max-width: 100%;
     height: 200px;
   }
   #entry {
     padding: 10px !important;
+    margin: 10px !important;
   }
   .wrap {
     width: 100% !important;
@@ -162,6 +169,11 @@ iframe {
 }
 
 @media (min-width: 768px) and (max-width: 1029px) {
+  .widget {
+    padding: 10px;
+    background: #fff;
+    font-size: 15px;
+  }
   .t-1of3 {
     float: left;
     width: 33.33%;
@@ -270,7 +282,7 @@ h4, .h4 {
 
 
 #content {
-  margin-top: 2em;
+  margin-top: 10px;
   padding-bottom: 3em;
 }
 
@@ -454,26 +466,10 @@ h4, .h4 {
   margin-top: 0;
 }
 
-.widget {
-  margin: 0 0 2.5em;
-  background: #fff;
-  font-size: .98em;
-}
-
 .widgettitle {
   margin-bottom: 0;
   padding: 7px 13px;
   font-size: 1.2em;
-}
-
-.sidebar {
-  .widgettitle:before {
-    padding-right: 4px;
-    font-family: FontAwesome;
-  }
-  .widget_recent_entries .widgettitle:before {
-    content: "\f08d";
-  }
 }
 
 .widget {
@@ -674,6 +670,11 @@ h4, .h4 {
 }
 
 @media only screen and (min-width: 1030px) {
+  .widget {
+    padding: 10px;
+    background: #fff;
+    font-size: 15px;
+  }
   .single-title, .page-title, .entry-title {
     font-size: 1.5vw;
   }
