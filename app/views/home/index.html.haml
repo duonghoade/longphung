@@ -4,12 +4,13 @@
       .cardtype.cf
         - @articles.each.with_index(1) do |article, i|
           %article.cardtype__article
-            %a.cardtype__link{:href => show_path(url_slug: article.url_slug, match_id: article.first_match_id)}
-              %p.cardtype__img
-                %img{:alt => article.title, :src => article.thumbnail}/
-              .cardtype__article-info
-                %time.updated.entry-time.dfont{:datetime => "2017-10-24"}= article.created_at.to_date
-                %h2= article.title
+            .match
+              %a.cardtype__link{:href => show_path(url_slug: article.url_slug, match_id: article.first_match_id)}
+                %p.cardtype__img
+                  %img{:alt => article.title, :src => article.thumbnail}/
+                .cardtype__article-info
+                  %time.updated.entry-time.dfont{:datetime => "2017-10-24"}= article.created_at.to_date
+                  %h2= article.title
         
     #sidebar1.sidebar.m-all.t-1of3.d-2of7.last-col.cf{:role => "complementary"}
       .insidesp
