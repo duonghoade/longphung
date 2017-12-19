@@ -9,6 +9,9 @@
       body {
         background: url(/bg.jpg);
         background-size: 100%;
+        button {
+          outline: none;
+        }
         #start {
           height: 60px;
           line-height: 60px;
@@ -47,13 +50,13 @@
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0222', endColorstr='#6d0019', GradientType=0 );
       }
       .odometer.odometer-theme-car {
-        font-size: 150px;
-        line-height: 150px;
+        text-align: center;
+        font-size: 204px;
+        line-height: 200px;
         display: block;
-        width: 514px;
-        max-width: 514px;
+        width: 750px;
+        max-width: 1000px;
         margin: auto;
-        margin-top: 30px;
         background: unset;
         padding: 0;
       }
@@ -66,7 +69,7 @@
       }
     
   %body{style: "margin: 10px 50px"}
-    #start BẮT ĐẦU
+    %button#start BẮT ĐẦU
     #logo
       %img{src: "/logo.png"}
     .odometer-example

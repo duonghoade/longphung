@@ -643,6 +643,7 @@
     spin = void 0;
     start = false;
     code = null;
+    var clicked = false;
     exampleOdometerValue = 8888;
     exampleOdometer = new Odometer({
       el: $('.odometer-example')[0],
@@ -656,18 +657,18 @@
       rand_2 = Math.floor(Math.random() * (9 - 0)).toString();
       rand_3 = Math.floor(Math.random() * (9 - 0)).toString();
       rand_4 = Math.floor(Math.random() * (9 - 0)).toString();
-      code = rand_1 + rand_2 + rand_3 + rand_4;
+      code = Math.floor(Math.random() * (1761 - 0)).toString();
       return exampleOdometer.update(code);
     };
     $('#start').click(function() {
-      if (!start) {
-        $('.result').hide();
-        $('#start').text("XEM KẾT QUẢ");
-        doSomeThing();
-        spin = setInterval((function() {
+      $('.result').hide();
+      $('#start').text("ĐANG QUAY...");
+      $('#start').prop('disabled', true)
+      doSomeThing();
+      spin = setInterval((function() {
           return doSomeThing();
         }), 2000);
-      } else {
+      setTimeout(function(){
         clearInterval(spin);
         $.ajax({
           url: '/get_customer' + '?code=' + code,
@@ -675,11 +676,12 @@
             $('.greeting').text('XIN CHÚC MỪNG');
             $('.phone').text(respon.phone);
             $('.name').text(respon.name);
+            $('#start').prop('disabled', false)
             return $('#start').text("QUAY TIẾP");
           }
         });
-      }
-      return start = !start;
+      }, 7000);
+
     });
     return $(document).keyup(function(e) {
       if (e.keyCode === 13) {
