@@ -7,10 +7,14 @@ namespace :longphung do
     CSV.foreach("#{Rails.root}/backup/longphung.csv") do |row|
       name = row[0]
       phone = row[1].first.to_i == 0 ? row[1] : "0#{row[1]}"
-      customer = Customer.create(
-        name: name,
-        phone: phone
-      )
+      if Customer.find_by(phone: phone).present?
+        customer = Customer.find_by(phone: phone)
+      else
+        customer = Customer.create(
+          name: name,
+          phone: phone
+        )
+      end
       row[2].split(",").each do |code|
         customer.gift_codes.create(code: code)
       end

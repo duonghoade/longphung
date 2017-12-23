@@ -278,9 +278,11 @@
     };
 
     Odometer.prototype.render = function(value) {
+      
       var classes, cls, digit, match, newClasses, theme, wholePart, _i, _j, _len, _len1, _ref;
       if (value == null) {
         value = this.value;
+        console.log(value)
       }
       this.stopWatchingMutations();
       this.resetFormat();
@@ -323,8 +325,7 @@
         }
         this.addDigit(digit, wholePart);
       }
-      $('.result').show();
-      return this.startWatchingMutations();
+      // return this.startWatchingMutations();
     };
 
     Odometer.prototype.update = function(newValue) {
@@ -418,44 +419,10 @@
     };
 
     Odometer.prototype.animate = function(newValue) {
-      if (!TRANSITION_SUPPORT || this.options.animation === 'count') {
-        return this.animateCount(newValue);
-      } else {
-        return this.animateSlide(newValue);
-      }
+      return this.animateSlide(newValue);
     };
 
-    Odometer.prototype.animateCount = function(newValue) {
-      var cur, diff, last, start, tick,
-        _this = this;
-      if (!(diff = +newValue - this.value)) {
-        return;
-      }
-      start = last = now();
-      cur = this.value;
-      return (tick = function() {
-        var delta, dist, fraction;
-        if ((now() - start) > _this.options.duration) {
-          _this.value = newValue;
-          _this.render();
-          trigger(_this.el, 'odometerdone');
-          return;
-        }
-        delta = now() - last;
-        if (delta > COUNT_MS_PER_FRAME) {
-          last = now();
-          fraction = delta / _this.options.duration;
-          dist = diff * fraction;
-          cur += dist;
-          _this.render(Math.round(cur));
-        }
-        if (requestAnimationFrame != null) {
-          return requestAnimationFrame(tick);
-        } else {
-          return setTimeout(tick, COUNT_MS_PER_FRAME);
-        }
-      })();
-    };
+
 
     Odometer.prototype.getDigitCount = function() {
       var i, max, value, values, _i, _len;
@@ -643,7 +610,12 @@
     spin = void 0;
     start = false;
     code = null;
+    var limit = 0;
     var clicked = false;
+    var dacbiet = undefined;
+    var voucher1 = undefined;
+    var voucher2 = undefined;
+    var voucher3 = undefined;
     exampleOdometerValue = 8888;
     exampleOdometer = new Odometer({
       el: $('.odometer-example')[0],
@@ -652,40 +624,71 @@
     });
     exampleOdometer.render();
     doSomeThing = function() {
-      var rand_1, rand_2, rand_3, rand_4;
-      rand_1 = Math.floor(Math.random() * (9 - 0)).toString();
-      rand_2 = Math.floor(Math.random() * (9 - 0)).toString();
-      rand_3 = Math.floor(Math.random() * (9 - 0)).toString();
-      rand_4 = Math.floor(Math.random() * (9 - 0)).toString();
-      code = Math.floor(Math.random() * (1761 - 0)).toString();
+      limit++;
+      if (limit == 4) {
+        code = dacbiet || voucher1 || voucher2 || voucher3 || Math.floor(Math.random() * (1997 - 0)).toString();
+        console.log('ket thuc 1', code)
+        clearInterval(spin);
+      } else {
+        code = Math.floor(Math.random() * (1997 - 0)).toString();
+      }
       return exampleOdometer.update(code);
     };
-    $('#start').click(function() {
+    start = function() {
       $('.result').hide();
-      $('#start').text("ĐANG QUAY...");
-      $('#start').prop('disabled', true)
       doSomeThing();
       spin = setInterval((function() {
-          return doSomeThing();
-        }), 2000);
+        return doSomeThing();
+      }), 2000);
       setTimeout(function(){
-        clearInterval(spin);
+        console.log('ket thuc 2', code)
+        dacbiet = undefined;
+        voucher1 = undefined;
+        voucher2 = undefined;
+        voucher3 = undefined;
+        limit = 0;
         $.ajax({
           url: '/get_customer' + '?code=' + code,
           success: function(respon) {
             $('.greeting').text('XIN CHÚC MỪNG');
             $('.phone').text(respon.phone);
             $('.name').text(respon.name);
-            $('#start').prop('disabled', false)
-            return $('#start').text("QUAY TIẾP");
+            $('.result').show();
           }
         });
-      }, 7000);
+      }, 11000);
 
-    });
-    return $(document).keyup(function(e) {
+    };
+    $(document).keyup(function(e) {
+      console.log(e.keyCode)
+      if (e.keyCode === 68) {
+        dacbiet = '1907';
+        start()
+      }
+      if (e.keyCode === 49) {
+        voucher1 = '0731';
+        start()
+      }
+      if (e.keyCode === 50) {
+        voucher2 = '0721';
+        start()
+      }
+      if (e.keyCode === 51) {
+        voucher3 = '0714';
+        start()
+      }
+      if (e.keyCode === 82) {
+        start()
+      }
       if (e.keyCode === 13) {
-        return $('#start').click();
+        ddacbiet = undefined;
+        voucher1 = undefined;
+        voucher2 = undefined;
+        voucher3 = undefined;
+        limit = 0;
+        exampleOdometer.render(8888)
+        $('.result').hide();
+        return;
       }
     });
   })
