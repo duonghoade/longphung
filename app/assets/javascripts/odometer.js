@@ -612,10 +612,7 @@
     code = null;
     var limit = 0;
     var clicked = false;
-    var dacbiet = undefined;
-    var voucher1 = undefined;
-    var voucher2 = undefined;
-    var voucher3 = undefined;
+    var targetCode = undefined;
     exampleOdometerValue = 8888;
     exampleOdometer = new Odometer({
       el: $('.odometer-example')[0],
@@ -626,7 +623,7 @@
     doSomeThing = function() {
       limit++;
       if (limit == 4) {
-        code = dacbiet || voucher1 || voucher2 || voucher3 || Math.floor(Math.random() * (1997 - 0)).toString();
+        code = targetCode;
         console.log('ket thuc 1', code)
         clearInterval(spin);
       } else {
@@ -642,11 +639,6 @@
       }), 2000);
       setTimeout(function(){
         console.log('ket thuc 2', code)
-        dacbiet = undefined;
-        voucher1 = undefined;
-        voucher2 = undefined;
-        voucher3 = undefined;
-        limit = 0;
         $.ajax({
           url: '/get_customer' + '?code=' + code,
           success: function(respon) {
@@ -654,6 +646,9 @@
             $('.phone').text(respon.phone);
             $('.name').text(respon.name);
             $('.result').show();
+            targetCode = undefined;
+            code = undefined;
+            limit = 0;
           }
         });
       }, 11000);
@@ -661,30 +656,64 @@
     };
     $(document).keyup(function(e) {
       console.log(e.keyCode)
-      if (e.keyCode === 68) {
-        dacbiet = '1907';
+
+      if (e.keyCode === 66) {
+        targetCode = '1907';
         start()
       }
+      if (e.keyCode == 78) {
+        targetCode = '1252';
+        start()
+      }
+      if (e.keyCode == 77) {
+        targetCode = '2067';
+        start()
+      }
+
       if (e.keyCode === 49) {
-        voucher1 = '0731';
+        //1chi Phuong
+        targetCode = '2104';
         start()
       }
       if (e.keyCode === 50) {
-        voucher2 = '0721';
+        //2 CHi Cham
+        targetCode = '2204';
         start()
       }
       if (e.keyCode === 51) {
-        voucher3 = '0714';
+        //3chi Lien
+        targetCode = '1333';
         start()
       }
-      if (e.keyCode === 82) {
+      if (e.keyCode === 52) {
+        //4thay Thong
+        targetCode = '1288';
         start()
       }
+      if (e.keyCode === 53) {
+        //5Du lich F5
+        targetCode = '2176';
+        start()
+      }
+      if (e.keyCode === 54) {
+        //6du lich Hoang Tra
+        targetCode = '2992';
+        start()
+      }
+      if (e.keyCode === 55) {
+        //7 ANh thien
+        targetCode = '0081';
+        start()
+      }
+      if (e.keyCode === 56) {
+        //8 ANh Duong 
+        targetCode = '1447';
+        start()
+      }
+
       if (e.keyCode === 13) {
-        ddacbiet = undefined;
-        voucher1 = undefined;
-        voucher2 = undefined;
-        voucher3 = undefined;
+        targetCode = undefined;
+        code = undefined
         limit = 0;
         exampleOdometer.render(8888)
         $('.result').hide();
