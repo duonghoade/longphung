@@ -1,6 +1,6 @@
 
 set :application, 'aoehd'
-set :repo_url, 'git@bitbucket.org:hoangnt142/aoehd.git'
+set :repo_url, 'git@github.com:duonghoade/longphung.git'
 
 set :deploy_to, "/var/www/#{fetch(:application)}"
 
