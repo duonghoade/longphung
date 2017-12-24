@@ -610,6 +610,8 @@
     spin = void 0;
     start = false;
     code = null;
+    var showIphone = 'none';
+    var show5000 = 'none';
     var limit = 0;
     var clicked = false;
     var targetCode = undefined;
@@ -646,8 +648,12 @@
             $('.phone').text(respon.phone);
             $('.name').text(respon.name);
             $('.result').show();
+            $('.ip8').css('display', showIphone)
+            $('.namtrieu').css('display', show5000)
             targetCode = undefined;
             code = undefined;
+            showIphone = 'none';
+            show5000 = 'none';
             limit = 0;
           }
         });
@@ -659,55 +665,66 @@
 
       if (e.keyCode === 66) {
         targetCode = '1907';
+        showIphone = 'block'
         start()
       }
       if (e.keyCode == 78) {
         targetCode = '1252';
+        showIphone = 'block'
         start()
       }
       if (e.keyCode == 77) {
         targetCode = '2067';
+        showIphone = 'block'
         start()
       }
 
       if (e.keyCode === 49) {
         //1chi Phuong
         targetCode = '2104';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 50) {
         //2 CHi Cham
         targetCode = '2204';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 51) {
         //3chi Lien
         targetCode = '1333';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 52) {
         //4thay Thong
         targetCode = '1288';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 53) {
         //5Du lich F5
         targetCode = '2176';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 54) {
         //6du lich Hoang Tra
         targetCode = '2992';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 55) {
         //7 ANh thien
         targetCode = '0081';
+        show5000 = 'block'
         start()
       }
       if (e.keyCode === 56) {
         //8 ANh Duong 
         targetCode = '1447';
+        show5000 = 'block'
         start()
       }
 
@@ -715,6 +732,10 @@
         targetCode = undefined;
         code = undefined
         limit = 0;
+        showIphone = 'none';
+        show5000 = 'none';
+        $('.ip8').css('display', showIphone)
+        $('.namtrieu').css('display', show5000)
         exampleOdometer.render(8888)
         $('.result').hide();
         return;
