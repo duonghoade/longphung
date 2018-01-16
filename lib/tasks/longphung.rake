@@ -3,20 +3,15 @@ namespace :longphung do
   task create: :environment do
     GiftCode.delete_all
     Customer.delete_all
-    
-    CSV.foreach("#{Rails.root}/backup/longphung.csv") do |row|
-      name = row[0]
-      phone = row[1].first.to_i == 0 ? row[1] : "0#{row[1]}"
-      if Customer.find_by(phone: phone).present?
-        customer = Customer.find_by(phone: phone)
-      else
+    department = ""
+    CSV.foreach("#{Rails.root}/backup/longphung.csv").with_index(1) do |row, i|
+      department = row[0].nil? ? row[1] : department
+      unless row[0].nil?
+        name = row[1].upcase + "<br/>PHÒNG #{department.upcase}"
         customer = Customer.create(
-          name: name,
-          phone: phone
+          name: name
         )
-      end
-      row[2].split(",").each do |code|
-        customer.gift_codes.create(code: code)
+        customer.gift_codes.create(code: i)
       end
     end
   end

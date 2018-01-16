@@ -349,12 +349,10 @@
         _this.el.offsetHeight;
         return addClass(_this.el, 'odometer-animating');
       }, 0);
-      if (newValue >= 100 && newValue < 1000) {
+      if (newValue >= 10 && newValue < 100) {
         return this.value = '0' + newValue;
-      } else if (newValue >= 10 && newValue < 100) {
-        return this.value = '00' + newValue;
       } else if (newValue < 10) {
-        return this.value = '000' + newValue;
+        return this.value = '00' + newValue;
       }
       return this.value = newValue;
     };
@@ -615,7 +613,7 @@
     var limit = 0;
     var clicked = false;
     var targetCode = undefined;
-    exampleOdometerValue = 8888;
+    exampleOdometerValue = 888;
     exampleOdometer = new Odometer({
       el: $('.odometer-example')[0],
       theme: 'car',
@@ -625,11 +623,11 @@
     doSomeThing = function() {
       limit++;
       if (limit == 4) {
-        code = targetCode;
+        code = Math.floor(Math.random() * (348 - 0)).toString();;
         console.log('ket thuc 1', code)
         clearInterval(spin);
       } else {
-        code = Math.floor(Math.random() * (1997 - 0)).toString();
+        code = Math.floor(Math.random() * (999 - 0)).toString();
       }
       return exampleOdometer.update(code);
     };
@@ -645,8 +643,7 @@
           url: '/get_customer' + '?code=' + code,
           success: function(respon) {
             $('.greeting').text('XIN CHÚC MỪNG');
-            $('.phone').text(respon.phone);
-            $('.name').text(respon.name);
+            $('.name').html(respon.name);
             $('.result').show();
             $('.ip8').css('display', showIphone)
             $('.namtrieu').css('display', show5000)
@@ -657,15 +654,13 @@
             limit = 0;
           }
         });
-      }, 11000);
+      }, 10000);
 
     };
     $(document).keyup(function(e) {
       console.log(e.keyCode)
 
-      if (e.keyCode === 66) {
-        targetCode = '1907';
-        showIphone = 'block'
+      if (e.keyCode === 32) {
         start()
       }
       if (e.keyCode == 78) {
@@ -736,7 +731,7 @@
         show5000 = 'none';
         $('.ip8').css('display', showIphone)
         $('.namtrieu').css('display', show5000)
-        exampleOdometer.render(8888)
+        exampleOdometer.render(888)
         $('.result').hide();
         return;
       }
